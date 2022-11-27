@@ -6,11 +6,7 @@ exports.add = function (data) {
     var emitter = new EventEmitter();
 
     StatusModel.find({email:data.query.email}).then(function (result) {
-        console.log("result"+result)
-        console.log("email found"+data.query.email +" "+data.body);
         if(result.length==0){
-                console.log("add data start"+data.query.email);
-
                 var addStatus = new StatusModel({email:data.query.email,Status:data.body});
                 addStatus.save()
                     .then(
@@ -18,8 +14,6 @@ exports.add = function (data) {
                             emitter.emit('SUCCESS', result);
                         },
                         function (error) {
-                            console.log("add data start2"+data.body.id);
-                            console.log("error of db operation ", error);
         
                             if (error.code == 11000) {
                                 emitter.emit('DUPLICATE')

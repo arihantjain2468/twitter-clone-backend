@@ -1,7 +1,6 @@
 const FollowingService = require('./following.service');
 
 exports.add = function (req, res) {
-    console.log("request"+req.body);
     FollowingService.add(req)
         .on('ERROR', function () {
             res.status(500).send({
@@ -16,7 +15,6 @@ exports.add = function (req, res) {
 };
 
 exports.fetchAll = function (req, res) {
-    console.log("In fetch");
     FollowingService.fetchData(req)
         .on('ERROR', function () {
             res.status(500).send({
@@ -32,7 +30,6 @@ exports.fetchAll = function (req, res) {
 };
 
 exports.fetchFeeds = function (req, res) {
-    console.log("In fetch");
     FollowingService.feeds(req)
         .on('ERROR', function () {
             res.status(500).send({

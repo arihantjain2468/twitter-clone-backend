@@ -6,7 +6,6 @@ const variables = require('../variables');
 
 exports.createUser = function (data) {
     var emitter = new EventEmitter();
-    console.log("Request: ",data);
     bcrypt.hash(data.password, variables.hashValue, function (error, hash) {
         if (error) {
             console.log("Error occured while encrypting" + error);
@@ -14,10 +13,8 @@ exports.createUser = function (data) {
             data.password = hash;
             var userdata = new UserModel(data);
             userdata.save().then(function (result) {
-                console.log("result of db operation ", result)
                 emitter.emit('SUCCESS', result)
             }, function (error) {
-                console.log("error of db operation ", error)
                 if (error.code == 11000) {
                     emitter.emit('DUPLICATE')
                 }
@@ -50,14 +47,12 @@ exports.createToken = function (data) {
 }
 exports.findUser = function (data) {
     var emitter = new EventEmitter();
-    console.log('old: ' + data.password);
 
     var query = {
         email: data.email
     }
 
     UserModel.findOne(query).then((result) => {
-        console.log("stored");
         bcrypt.compare(data.password, result.password,
             function (err, res) {
                 if (res)

@@ -1,7 +1,6 @@
 const UserService = require('./user.service');
 
 exports.register = function (req, res) {
-    console.log("User registeration here ");
     UserService.createUser(req.body)
         .on('ERROR', function () {
             res.status(500).send({

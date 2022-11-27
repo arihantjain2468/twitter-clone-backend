@@ -7,10 +7,7 @@ exports.add = function (data) {
     var emitter = new EventEmitter();
 
     FollowingModel.find({email:data.query.email}).then(function (result) {
-        console.log("result"+result)
-        console.log("email found"+data.query.email +" "+data.body);
         if(result.length==0){
-                console.log("add data start"+data.query.email);
 
                 var followUser = new FollowingModel({email:data.query.email,Follow:data.body});
                 followUser.save()
@@ -55,13 +52,10 @@ exports.fetchData = function (data) {
 
     FollowingModel.find({email:data.query.email}).then(function (result) {
          
-        console.log("0 check result"+result);
-
         if(result.length>0){
 
         result[0].Follow.forEach(item => UserNotFollowing.push(item.id));
 
-        console.log("user "+UserNotFollowing);
         }
 
         UserModel.find({email:{$nin:UserNotFollowing}}).then(function(list){
@@ -88,7 +82,6 @@ exports.feeds = function (data) {
 
     FollowingModel.find({email:data.query.email}).then(function (result) {
 
-        console.log("follow"+result+" "+"sjhskj"+result[0]);
 
         if(result.length>0){
         result[0].Follow.forEach(item => UserFollowing.push(item.id));
