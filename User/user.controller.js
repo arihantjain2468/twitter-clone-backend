@@ -16,7 +16,6 @@ exports.register = function (req, res) {
                     console.log("Token failed");
                 })
                 .on('SUCCESS', function (result2) {
-                    console.log("Token register " + result2 + " ghj ");
                     res.set('Token', result2);
                     res.send({
                         data1,
@@ -54,13 +53,13 @@ exports.login = function (req, res) {
                 .on('SUCCESS', function (result2) {
                     console.log("Token register" + result2);
                     res.set('Token', result2);
-                })
-
-            res.send({
-                data1,
-                result:1,
-                message: "Login Success"
-            })
+                    res.send({
+                        data1,
+                        result:1,
+                        token:result2,
+                        message: "Login Success"
+                    });
+                });
         })
 }
 

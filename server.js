@@ -9,6 +9,7 @@ server.use(BodyParser.json());
 
 const UserRoutes=require('./User');
 const StatusRoutes = require('./Status');
+const FollowRoutes = require('./Follow');
 
 const port_no = process.env.Port || 2200;
 const dburl = "mongodb://localhost:27017/twitter";
@@ -23,6 +24,7 @@ Mongoose.connect(dburl)
 
 server.use('/user', UserRoutes);
 server.use('/status', StatusRoutes);
+server.use('/follow', FollowRoutes);
 
 server.listen(port_no, function () {
     console.log("Server is running");
